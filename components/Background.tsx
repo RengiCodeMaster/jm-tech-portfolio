@@ -25,7 +25,8 @@ const Background: React.FC = () => {
     window.addEventListener('mousemove', handleMouseMove);
 
     const particles: { x: number; y: number; vx: number; vy: number; size: number }[] = [];
-    const particleCount = width < 768 ? 40 : 80;
+    // Drastically reduce for mobile to save battery and performance
+    const particleCount = width < 768 ? 15 : 60;
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -50,15 +51,17 @@ const Background: React.FC = () => {
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
-        // Mouse interaction (repel)
-        const dx = p.x - mouseX;
-        const dy = p.y - mouseY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 150) {
-          const angle = Math.atan2(dy, dx);
-          const force = (150 - distance) / 150;
-          p.x += Math.cos(angle) * force * 2;
-          p.y += Math.sin(angle) * force * 2;
+        // Mouse interaction (repel) - Only on desktop
+        if (width > 768) {
+          const dx = p.x - mouseX;
+          const dy = p.y - mouseY;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 150) {
+            const angle = Math.atan2(dy, dx);
+            const force = (150 - distance) / 150;
+            p.x += Math.cos(angle) * force * 2;
+            p.y += Math.sin(angle) * force * 2;
+          }
         }
 
         ctx.fillStyle = 'rgba(6, 182, 212, 0.5)';
@@ -66,17 +69,19 @@ const Background: React.FC = () => {
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Connect particles
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const distIs = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (distIs < 100) {
-            ctx.strokeStyle = `rgba(6, 182, 212, ${0.15 - distIs / 1000})`; // Fade out
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
+        // Connect particles - disable on mobile for performance
+        if (width > 768) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const distIs = Math.hypot(p.x - p2.x, p.y - p2.y);
+            if (distIs < 100) {
+              ctx.strokeStyle = `rgba(6, 182, 212, ${0.15 - distIs / 1000})`; // Fade out
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
           }
         }
       });
