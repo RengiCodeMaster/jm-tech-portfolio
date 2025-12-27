@@ -26,17 +26,18 @@ const Navbar: React.FC = () => {
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
 
   return (
-    <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#05060A]/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'
-      }`}
+    <header
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#05060A]/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <a href="#hero" className="font-display font-bold text-2xl tracking-tight text-white flex items-center gap-2">
@@ -57,7 +58,7 @@ const Navbar: React.FC = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all duration-300 group-hover:w-full"></span>
             </button>
           ))}
-          <a 
+          <a
             href="#contact"
             className="px-5 py-2 rounded-full bg-white/5 border border-white/10 hover:border-primary/50 text-sm font-medium transition-all hover:bg-white/10 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]"
           >
@@ -66,7 +67,7 @@ const Navbar: React.FC = () => {
         </nav>
 
         {/* Mobile Toggle */}
-        <button 
+        <button
           className="md:hidden text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
