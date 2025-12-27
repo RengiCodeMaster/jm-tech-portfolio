@@ -16,7 +16,7 @@ const Contact: React.FC = () => {
     const { name, email, service, message } = formData;
 
     // Strict structure requested by user
-    const whatsappMessage = `Hola Juan 👋 soy ${name}.
+    const whatsappMessage = `Hola Juan  soy ${name}.
 Quiero cotizar: ${service}.
 Detalles: ${message}.
 Mi correo: ${email}.`;
