@@ -133,7 +133,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Holographic Photo Container */}
+          {/* Floating Laptop Container */}
           <motion.div
             style={{
               rotateX,
@@ -142,73 +142,36 @@ const Hero: React.FC = () => {
             }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative z-10 w-[280px] h-[380px] md:w-[340px] md:h-[460px] rounded-3xl overflow-visible group cursor-pointer"
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="relative z-10 w-full min-w-[600px] md:min-w-[800px] scale-[1.8] md:scale-[2.2] lg:scale-[2.8] group cursor-pointer"
           >
-            {/* Glow behind the photo */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary to-secondary blur-[60px] opacity-40 group-hover:opacity-60 transition-opacity duration-500 -z-10"></div>
+            {/* Glow behind laptop */}
+            <div className="absolute inset-0 bg-primary/20 blur-[80px] rounded-full -z-10 transform scale-75"></div>
 
-            {/* The Container Frame */}
-            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-white/10 backdrop-blur-sm shadow-2xl">
+            {/* Laptop Image */}
+            <img
+              src="/hero-laptop.png"
+              alt="JM Tech Laptop"
+              className="w-full h-auto relative z-20 drop-shadow-2xl"
+            />
 
-              {/* Glass Reflection */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent z-30 pointer-events-none mix-blend-overlay"></div>
-
-              {/* Scan Lines Overlay */}
-              <div className="scan-lines absolute inset-0 z-20 opacity-20 pointer-events-none"></div>
-
-              {/* Image with Blend Mask */}
-              {/* The mask-image CSS creates the fade at the bottom to blend with background */}
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                style={{
-                  backgroundImage: 'url(/hero-image.png)',
-                  maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)'
-                }}
-              >
-                {/* Fallback img tag if bg-image fails or for SEO, hidden visually but loaded */}
-                <img
-                  src="/hero-image.png"
-                  alt="Juan M."
-                  className="opacity-0 w-full h-full"
-                  onError={(e) => {
-                    const parent = e.currentTarget.parentElement;
-                    if (parent) {
-                      parent.style.backgroundImage = "url(https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&q=80)";
-                    }
-                  }}
-                />
-              </div>
-
-              {/* Overlay Gradient at bottom for text readability */}
-              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#05060A] to-transparent z-10"></div>
-
-              {/* Content floating on top of image */}
-              <div className="absolute bottom-6 left-6 z-30">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                  <span className="text-xs font-mono text-green-400 tracking-widest uppercase">Online</span>
-                </div>
-                <p className="text-white font-display font-bold text-2xl tracking-wide">Juan M.</p>
-                <p className="text-primary/80 text-sm font-medium">Full Stack Engineer</p>
-              </div>
-            </div>
-
-            {/* Floating UI Elements around the card (Parallax) */}
+            {/* Floating UI Elements */}
             <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -right-6 bg-black/40 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl z-40 transform translate-z-12"
+              animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              className="absolute -top-10 -right-4 md:-right-10 bg-black/60 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-xl z-30"
             >
               <Code2Icon />
             </motion.div>
 
             <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-4 -left-8 bg-black/40 backdrop-blur-md border border-white/10 px-4 py-2 rounded-lg shadow-xl z-40 flex items-center gap-2"
+              animate={{ y: [0, 15, 0], x: [0, -5, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute -bottom-8 -left-4 md:-left-12 bg-black/60 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-xl shadow-xl z-30 flex items-center gap-3"
             >
-              <div className="text-xs text-white font-mono">Python <span className="text-yellow-400">●</span></div>
+              <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+              <div className="text-sm text-white font-mono">System <span className="text-primary">Online</span></div>
             </motion.div>
           </motion.div>
         </div>
