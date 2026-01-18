@@ -144,7 +144,7 @@ const Hero: React.FC = () => {
             onMouseLeave={handleMouseLeave}
             animate={{ y: [0, -20, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="relative z-10 w-full min-w-[600px] md:min-w-[800px] scale-[1.8] md:scale-[2.2] lg:scale-[2.8] group cursor-pointer"
+            className="relative z-10 w-full md:min-w-[800px] scale-110 md:scale-[2.2] lg:scale-[2.8] group cursor-pointer"
           >
             {/* Glow behind laptop */}
             <div className="absolute inset-0 bg-primary/20 blur-[80px] rounded-full -z-10 transform scale-75"></div>
